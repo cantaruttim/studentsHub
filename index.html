@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <script defer src="./script.js"></script>
+    <title>Maturidade Espiritual - Atividade</title>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Maturidade Espiritual</h1>
+            <p class="author">Pra. Laura Valente</p>
+        </header>
+        
+        <h2>Atividade - Módulo 2: Maturidade Espiritual</h2>
+        
+        <div class="instructions">
+            <p>Graça e paz, Aluno(a)!</p>
+            <p>Segue a atividade de hoje, lembrando que a atividade vale 1 ponto e o link sairá do ar sempre no dia seguinte às 23h.</p>
+            <p>No amor de Cristo Jesus,<br>ADAI College</p>
+        </div>
+        
+        <p><span class="required">*</span> Indica questão obrigatória</p>
+        <br />
+        <form>
+            <div class="form-group">
+                <label for="email">Email <span class="required">*</span></label>
+                <input type="email" id="email" name="email" placeholder="Seu endereço de email" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="name">Nome completo <span class="required">*</span></label>
+                <input type="text" id="name" name="name" placeholder="Seu nome completo" required>
+            </div>
+
+            <div class="form-group">
+                <label for="registrationNumber">Matrícula <span class="required">*</span></label>
+                <input type="text" id="registrationNumber" name="registrationNumber" placeholder="Matrícula" required>
+            </div>
+
+            <div class="form-group">
+                <label for="module">Módulo <span class="required">*</span></label>
+                <input type="text" id="module" name="module" placeholder="Módulo" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="questionOne">1- O que mais te chamou atenção na aula de hoje? (Mínimo de 300 caracteres) <span class="required">*</span></label>
+                <textarea id="questionOne" name="questionOne" placeholder="Sua resposta" minlength="300" required></textarea>
+                <p class="char-limit">Mínimo de 300 caracteres</p>
+            </div>
+            
+            <div class="form-group">
+                <label for="questionTwo">2- Qual passo prático você pode tomar a partir do conhecimento absorvido na aula de hoje? (Mínimo de 150 caracteres).</label>
+                <textarea id="questionTwo" name="questionTwo" placeholder="Sua resposta" minlength="150" required></textarea>
+                <p class="char-limit">Mínimo de 150 caracteres</p>
+            </div>
+            
+            <div class="footer-note">
+                Uma cópia de suas respostas será enviada para o email que você forneceu.
+            </div>
+            
+            <div class="buttons">
+                <button type="submit" class="submit-btn">Enviar</button>
+                <button type="reset" class="clear-btn">Limpar formulário</button>
+            </div>
+        </form>
+        
+        <div class="signature">
+            <p>No amor de Cristo Jesus,<br>ADAI College</p>
+        </div>
+    </div>
+</body>
+</html>
