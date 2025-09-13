@@ -3,6 +3,7 @@ package main
 import (
 	"forms-activities/controller"
 	"forms-activities/db"
+	"forms-activities/repository"
 	"forms-activities/usecase"
 
 	"github.com/gin-gonic/gin"
@@ -16,7 +17,11 @@ func main() {
 		panic(err)
 	}
 
-	FormsUsecase := usecase.NewFormsUsecase()
+	// Repository
+	FormsRepository := repository.NewFormsRepository(dbConnection)
+
+	// Usecase
+	FormsUsecase := usecase.NewFormsUsecase(FormsRepository)
 
 	// Controllers
 	formsController := controller.NewFormsController(FormsUsecase)
