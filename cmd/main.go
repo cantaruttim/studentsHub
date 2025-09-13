@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 	"time"
+
+	"github.com/gin-gonic/gin"
 )
 
 type Forms struct {
@@ -29,5 +31,10 @@ func (f Forms) GetFullForms() string {
 }
 
 func main() {
-
+	server := gin.Default()
+	server.GET("/forms", func(ctx *gin.Context) {
+		ctx.JSON(200, gin.H{
+			"message": "Hello World",
+		})
+	})
 }
