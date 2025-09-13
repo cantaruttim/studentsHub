@@ -2,6 +2,7 @@ package main
 
 import (
 	"forms-activities/controller"
+	"forms-activities/usecase"
 
 	"github.com/gin-gonic/gin"
 )
@@ -9,8 +10,10 @@ import (
 func main() {
 	server := gin.Default()
 
+	FormsUsecase := usecase.NewFormsUsecase()
+
 	// Controllers
-	formsController := controller.NewFormsController()
+	formsController := controller.NewFormsController(FormsUsecase)
 
 	server.GET("/api/v1/forms-activities/response", formsController.GetForms)
 
