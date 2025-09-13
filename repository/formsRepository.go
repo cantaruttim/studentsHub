@@ -32,6 +32,7 @@ func (pr *FormsRepository) GetForms() ([]model.Forms, error) {
 
 	for rows.Next() {
 		err = rows.Scan(
+			&activitiesObj.id,
 			&activitiesObj.NomeAluno,
 			&activitiesObj.EmailAluno,
 			&activitiesObj.ModuloAluno,
