@@ -5,9 +5,8 @@ import (
 )
 
 type Forms struct {
-	id             int       `json:"id"`
-	NomeAluno      string    `json:"name"`
 	MatriculaAluno string    `json:"registrationNumber"`
+	NomeAluno      string    `json:"name"`
 	EmailAluno     string    `json:"email"`
 	ModuloAluno    string    `json:"module"`
 	QuestionOne    string    `json:"questionOne"`
