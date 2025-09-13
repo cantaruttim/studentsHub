@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   app:
     build: .
@@ -7,19 +5,23 @@ services:
     ports:
       - "8080:8080"
     environment:
-      - MONGO_URI=mongodb://mongo:27017/meubanco
+      - POSTGRES_URI=postgres://postgres:senha@postgres:5432/forms_activities_db?sslmode=disable
     depends_on:
-      - mongo
+      - postgres
     restart: unless-stopped
 
-  mongo:
-    image: mongo:latest
-    container_name: mongo
+  postgres:
+    image: postgres:15
+    container_name: postgres
     ports:
-      - "27017:27017"
+      - "5433:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 12102021
+      POSTGRES_DB: forms_activities_db
     volumes:
-      - mongo_data:/data/db
+      - postgres_data:/var/lib/postgresql/data
     restart: unless-stopped
 
 volumes:
-  mongo_data:
+  postgres_data:
