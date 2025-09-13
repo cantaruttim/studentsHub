@@ -12,7 +12,7 @@ type Forms struct {
 	ModuloAluno    string    `json:"module"`
 	QuestionOne    string    `json:"questionOne"`
 	QuestionTwo    string    `json:"questionTwo"`
-	SetAt          time.Time `json:"createdAt"`
+	SentAt         time.Time `json:"createdAt"`
 }
 
 func (f Forms) GetFullForms() string {
@@ -24,6 +24,6 @@ func (f Forms) GetFullForms() string {
 		f.ModuloAluno,
 		f.QuestionOne,
 		f.QuestionTwo,
-		f.SetAt.Format("2006-01-02 15:04:00"),
+		f.SentAt.Format("2006-01-02 15:04:00"),
 	)
 }
