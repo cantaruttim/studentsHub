@@ -2,6 +2,7 @@ package controller
 
 import (
 	"forms-activities/model"
+	"forms-activities/usecase"
 	"net/http"
 	"time"
 
@@ -9,11 +10,13 @@ import (
 )
 
 type formsController struct {
-	// UseCase
+	formsUsecase usecase.FormsUsecase
 }
 
-func NewFormsController() formsController {
-	return formsController{}
+func NewFormsController(formsUsecase usecase.FormsUsecase) formsController {
+	return formsController{
+		formsUsecase: formsUsecase,
+	}
 }
 
 func (p *formsController) GetForms(ctx *gin.Context) {
