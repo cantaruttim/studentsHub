@@ -6,13 +6,13 @@ import (
 )
 
 type Forms struct {
-	NomeAluno      string `json:"name"`
-	MatriculaAluno string `json:"registrationNumber"`
-	EmailAluno     string `json:"email"`
-	ModuloAluno    string `json:"module"`
-	QuestionOne    string `json:"questionOne"`
-	QuestionTwo    string `json:"questionTwo"`
-	SetAt          time.Time
+	NomeAluno      string    `json:"name"`
+	MatriculaAluno string    `json:"registrationNumber"`
+	EmailAluno     string    `json:"email"`
+	ModuloAluno    string    `json:"module"`
+	QuestionOne    string    `json:"questionOne"`
+	QuestionTwo    string    `json:"questionTwo"`
+	SetAt          time.Time `json:"createdAt"`
 }
 
 func (f Forms) GetFullForms() string {
