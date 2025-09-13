@@ -34,7 +34,10 @@ func main() {
 	server := gin.Default()
 	server.GET("/forms", func(ctx *gin.Context) {
 		ctx.JSON(200, gin.H{
-			"message": "Hello World",
+			"message": "pong",
 		})
 	})
+
+	server.Run(":8000")
+
 }
