@@ -1,0 +1,34 @@
+package db
+
+import (
+	"database/sql"
+	"fmt"
+)
+
+const (
+	host     = "localhost"
+	port     = 5433
+	user     = "postgres"
+	password = "12102021"
+	dbname   = "forms_activities_db"
+)
+
+func ConnectDB() (*sql.DB, error) {
+	psqlInfo := fmt.Sprintf("hist=%s port=%d user=%s "+
+		"password=%s dbname=%s sslmode=disable",
+		host, port, user, password, dbname,
+	)
+	db, err := sql.Open("postgres", psqlInfo)
+	if err != nil {
+		panic(err)
+	}
+
+	err = db.Ping()
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println("Connected to " + dbname)
+
+	return db, nil
+}
