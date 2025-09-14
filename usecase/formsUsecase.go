@@ -20,3 +20,13 @@ func NewFormsUsecase(repo repository.FormsRepository) FormsUsecase {
 func (fu *FormsUsecase) GetForms() ([]model.Forms, error) {
 	return fu.repository.GetForms()
 }
+
+func (fu *FormsUsecase) PostForms(form model.Forms) (model.Forms, error) {
+	err := fu.repository.CreateForms(form)
+
+	if err != nil {
+		return model.Forms{}, err
+	}
+
+	return form, nil
+}
