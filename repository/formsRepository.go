@@ -19,7 +19,7 @@ func NewFormsRepository(
 }
 
 func (pr *FormsRepository) GetForms() ([]model.Forms, error) {
-	query := "select * from activities"
+	query := "select registrationNumber, name, email, module, questionOne, questionTwo, SentAt  from activities"
 
 	rows, err := pr.connection.Query(query)
 	if err != nil {
@@ -32,10 +32,10 @@ func (pr *FormsRepository) GetForms() ([]model.Forms, error) {
 
 	for rows.Next() {
 		err = rows.Scan(
-			&activitiesObj.NomeAluno,
-			&activitiesObj.EmailAluno,
-			&activitiesObj.ModuloAluno,
-			&activitiesObj.MatriculaAluno,
+			&activitiesObj.RegistrationNumber,
+			&activitiesObj.Name,
+			&activitiesObj.Email,
+			&activitiesObj.Module,
 			&activitiesObj.QuestionOne,
 			&activitiesObj.QuestionTwo,
 			&activitiesObj.SentAt,

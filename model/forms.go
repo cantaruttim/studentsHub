@@ -5,11 +5,11 @@ import (
 )
 
 type Forms struct {
-	MatriculaAluno string    `json:"registrationNumber"`
-	NomeAluno      string    `json:"name"`
-	EmailAluno     string    `json:"email"`
-	ModuloAluno    string    `json:"module"`
-	QuestionOne    string    `json:"questionOne"`
-	QuestionTwo    string    `json:"questionTwo"`
-	SentAt         time.Time `json:"createdAt"`
+	RegistrationNumber string    `json:"RegistrationNumber"`
+	Name               string    `json:"Name"`
+	Email              string    `json:"Email"`
+	Module             string    `json:"Module"`
+	QuestionOne        string    `json:"QuestionOne"`
+	QuestionTwo        string    `json:"QuestionTwo"`
+	SentAt             time.Time `json:"SentAt"`
 }
