@@ -27,6 +27,7 @@ func main() {
 	formsController := controller.NewFormsController(FormsUsecase)
 
 	server.GET("/api/v1/forms-activities/response", formsController.GetForms)
+	server.POST("/api/v1/forms-activities/response", formsController.CreateForms)
 
 	server.Run(":8000")
 
