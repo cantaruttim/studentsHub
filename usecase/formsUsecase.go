@@ -17,10 +17,13 @@ func NewFormsUsecase(repo repository.FormsRepository) FormsUsecase {
 }
 
 // Implement business logic here in the future
+
+// GET
 func (fu *FormsUsecase) GetForms() ([]model.Forms, error) {
 	return fu.repository.GetForms()
 }
 
+// POST
 func (fu *FormsUsecase) PostForms(form model.Forms) (model.Forms, error) {
 	err := fu.repository.CreateForms(form)
 
