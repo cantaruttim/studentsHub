@@ -46,6 +46,16 @@ func (fa *formsController) FindById(ctx *gin.Context) {
 		ctx.JSON(http.StatusInternalServerError, err)
 		return
 	}
+
+	// Validated with the value exists on database
+	if forms == nil {
+		res := model.Respose{
+			Message: "The value of RegistrationNumber could not be find on database",
+		}
+		ctx.JSON(http.StatusNotFound, res)
+		return
+	}
+
 	ctx.JSON(http.StatusOK, forms)
 }
 
