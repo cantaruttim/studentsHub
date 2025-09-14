@@ -33,3 +33,14 @@ func (fu *FormsUsecase) PostForms(form model.Forms) (model.Forms, error) {
 
 	return form, nil
 }
+
+// FIND BY ID
+func (fu *FormsUsecase) FindById(RegistrationNumber string) (model.Forms, error) {
+
+	form, err := fu.repository.FindById(RegistrationNumber)
+	if err != nil {
+		return model.Forms{}, err
+	}
+
+	return form, nil
+}
