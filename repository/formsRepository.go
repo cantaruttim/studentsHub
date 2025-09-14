@@ -82,3 +82,39 @@ func (fr *FormsRepository) CreateForms(form model.Forms) error {
 	fmt.Println("✅ Formulário inserido com sucesso!")
 	return nil
 }
+
+func (fr *FormsRepository) FindById(RegistrationNumber string) (model.Forms, error) {
+
+	query, err := fr.connection.Prepare(
+		"select" +
+			"*" +
+			"from activities" +
+			"where RegistrationNumber = $1",
+	)
+	if err != nil {
+		fmt.Println(err)
+		return model.Forms{}, err
+	}
+
+	var form model.Forms
+
+	err = query.QueryRow(RegistrationNumber).Scan(
+		&form.RegistrationNumber,
+		&form.Name,
+		&form.Email,
+		&form.Module,
+		&form.QuestionOne,
+		&form.QuestionTwo,
+		&form.SentAt,
+	)
+
+	if err != nil {
+		if err == sql.ErrNoRows {
+			return model.Forms{}, nil
+		}
+		return model.Forms{}, err
+	}
+
+	query.Close()
+	return form, nil
+}
