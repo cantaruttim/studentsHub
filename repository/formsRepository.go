@@ -86,9 +86,7 @@ func (fr *FormsRepository) CreateForms(form model.Forms) error {
 func (fr *FormsRepository) FindById(RegistrationNumber string) (model.Forms, error) {
 
 	query, err := fr.connection.Prepare(
-		"select" +
-			"*" +
-			"from activities" +
+		"select * from activities" +
 			"where RegistrationNumber = $1",
 	)
 	if err != nil {
