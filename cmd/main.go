@@ -27,7 +27,7 @@ func main() {
 	formsController := controller.NewFormsController(FormsUsecase)
 
 	server.GET("/api/v1/forms-activities/response", formsController.GetForms)
-	server.GET("/api/v1/forms-activities/response/:RegistrationNumber", formsController.FindById)
+	server.GET("/api/v1/forms-activities/response/:registrationNumber", formsController.FindById)
 
 	server.POST("/api/v1/forms-activities/response", formsController.CreateForms)
 

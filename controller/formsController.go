@@ -4,7 +4,6 @@ import (
 	"forms-activities/model"
 	"forms-activities/usecase"
 	"net/http"
-	"strconv"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -31,10 +30,10 @@ func (fa *formsController) GetForms(ctx *gin.Context) {
 }
 
 func (fa *formsController) FindById(ctx *gin.Context) {
+	// Pega o valor da URL corretamente (case-sensitive)
+	RN := ctx.Param("registrationNumber")
 
-	// RN RegistrationNumber
-	RN := ctx.Param("RegistrationNumber")
-	if RN != "" {
+	if RN == "" {
 		res := model.Respose{
 			Message: "The value of RegistrationNumber must not be empty",
 		}
@@ -42,22 +41,16 @@ func (fa *formsController) FindById(ctx *gin.Context) {
 		return
 	}
 
-	registrationNumberInt, err := strconv.Atoi(RN)
+	forms, err := fa.formsUsecase.FindById(RN)
 	if err != nil {
-		ctx.JSON(http.StatusBadRequest, gin.H{"error": "registrationNumber must be an integer"})
+		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Erro ao buscar no banco"})
 		return
 	}
 
-	forms, err := fa.formsUsecase.FindById(registrationNumberInt)
-	if err != nil {
-		ctx.JSON(http.StatusInternalServerError, err)
-		return
-	}
-
-	// Validated with the value exists on database
-	if forms == nil {
+	// Aqui valida se não encontrou nada
+	if forms.RegistrationNumber == "" {
 		res := model.Respose{
-			Message: "The value of RegistrationNumber could not be find on database",
+			Message: "The value of RegistrationNumber could not be found on database",
 		}
 		ctx.JSON(http.StatusNotFound, res)
 		return
