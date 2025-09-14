@@ -29,6 +29,26 @@ func (fa *formsController) GetForms(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, forms)
 }
 
+func (fa *formsController) FindById(ctx *gin.Context) {
+
+	// RN RegistrationNumber
+	RN := ctx.Param("RegistrationNumber")
+	if RN != "" {
+		res := model.Respose{
+			Message: "The value of RegistrationNumber must not be empty",
+		}
+		ctx.JSON(http.StatusBadRequest, res)
+		return
+	}
+
+	forms, err := fa.formsUsecase.FindById(RN)
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, err)
+		return
+	}
+	ctx.JSON(http.StatusOK, forms)
+}
+
 func (fa *formsController) CreateForms(ctx *gin.Context) {
 	var form model.Forms
 
