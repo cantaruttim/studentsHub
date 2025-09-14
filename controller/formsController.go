@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"forms-activities/model"
 	"forms-activities/usecase"
 	"net/http"
 
@@ -24,17 +25,25 @@ func (fa *formsController) GetForms(ctx *gin.Context) {
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, err)
 	}
-
-	// forms := []model.Forms{
-	// 	{
-	// 		NomeAluno:      "Fernanda Oliveira da Silva",
-	// 		MatriculaAluno: "2022003456",
-	// 		EmailAluno:     "fernanda.silva@example.com",
-	// 		ModuloAluno:    "Maturidade Espiritual",
-	// 		QuestionOne:    "Como você descreveria sua jornada espiritual até agora?",
-	// 		QuestionTwo:    "Quais práticas espirituais você gostaria de explorar mais?",
-	// 		SentAt:         time.Now(),
-	// 	},
-	// }
 	ctx.JSON(http.StatusOK, forms)
+}
+
+func (fa *formsController) CreateForms(ctx *gin.Context) {
+	var form model.Forms
+	err := ctx.BindJSON(&form)
+
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, err)
+		return
+	}
+
+	insertedForm, err := fa.formsUsecase.PostForms(form)
+
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, err)
+		return
+	}
+
+	ctx.JSON(http.StatusCreated, insertedForm)
+
 }
