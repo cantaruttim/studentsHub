@@ -4,6 +4,7 @@ import (
 	"forms-activities/model"
 	"forms-activities/usecase"
 	"net/http"
+	"time"
 
 	"github.com/gin-gonic/gin"
 )
@@ -30,20 +31,20 @@ func (fa *formsController) GetForms(ctx *gin.Context) {
 
 func (fa *formsController) CreateForms(ctx *gin.Context) {
 	var form model.Forms
-	err := ctx.BindJSON(&form)
 
+	err := ctx.BindJSON(&form)
 	if err != nil {
-		ctx.JSON(http.StatusBadRequest, err)
+		ctx.JSON(http.StatusBadRequest, gin.H{"error": "JSON inválido"})
 		return
 	}
 
-	insertedForm, err := fa.formsUsecase.PostForms(form)
+	form.SentAt = time.Now()
 
+	insertedForm, err := fa.formsUsecase.PostForms(form)
 	if err != nil {
-		ctx.JSON(http.StatusInternalServerError, err)
+		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Erro ao salvar no banco"})
 		return
 	}
 
 	ctx.JSON(http.StatusCreated, insertedForm)
-
 }

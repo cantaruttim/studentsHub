@@ -56,13 +56,13 @@ func (fr *FormsRepository) CreateForms(form model.Forms) error {
 
 	_, err := fr.connection.Exec(`
 		INSERT INTO activities (
-			registration_number,
-			name,
-			email,
-			module,
-			question_one,
-			question_two,
-			sent_at
+			RegistrationNumber,
+			Name,
+			Email,
+			Module,
+			QuestionOne,
+			QuestionTwo,
+			SentAt
 		) VALUES ($1, $2, $3, $4, $5, $6, $7)
 	`,
 		form.RegistrationNumber,
