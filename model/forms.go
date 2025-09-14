@@ -11,5 +11,5 @@ type Forms struct {
 	Module             string    `json:"Module"`
 	QuestionOne        string    `json:"QuestionOne"`
 	QuestionTwo        string    `json:"QuestionTwo"`
-	SentAt             time.Time `json:"-"`
+	SentAt             time.Time `json:"CreatedAt"`
 }
