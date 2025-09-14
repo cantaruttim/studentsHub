@@ -4,6 +4,7 @@ import (
 	"forms-activities/model"
 	"forms-activities/usecase"
 	"net/http"
+	"strconv"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -41,7 +42,13 @@ func (fa *formsController) FindById(ctx *gin.Context) {
 		return
 	}
 
-	forms, err := fa.formsUsecase.FindById(RN)
+	registrationNumberInt, err := strconv.Atoi(RN)
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{"error": "registrationNumber must be an integer"})
+		return
+	}
+
+	forms, err := fa.formsUsecase.FindById(registrationNumberInt)
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, err)
 		return

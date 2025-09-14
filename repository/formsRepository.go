@@ -83,7 +83,7 @@ func (fr *FormsRepository) CreateForms(form model.Forms) error {
 	return nil
 }
 
-func (fr *FormsRepository) FindById(RegistrationNumber string) (*model.Forms, error) {
+func (fr *FormsRepository) FindById(RegistrationNumber int) (*model.Forms, error) {
 
 	query, err := fr.connection.Prepare(
 		"select * from activities" +
