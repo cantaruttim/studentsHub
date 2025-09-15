@@ -28,8 +28,8 @@ func main() {
 
 	server.GET("/api/v1/forms-activities/response", formsController.GetForms)
 	server.GET("/api/v1/forms-activities/response/:registrationNumber", formsController.FindById)
-
 	server.POST("/api/v1/forms-activities/response", formsController.CreateForms)
+	server.POST("/api/v1/forms-activities/response", formsController.ReceiveForms)
 
 	server.Run(":8000")
 

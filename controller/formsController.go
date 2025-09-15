@@ -13,10 +13,34 @@ type formsController struct {
 	formsUsecase usecase.FormsUsecase
 }
 
+type FormsDTO struct {
+	RegistrationNumberDTO string    `json:"RegistrationNumber"`
+	NameDTO               string    `json:"Name"`
+	EmailDTO              string    `json:"Email"`
+	ModuleDTO             string    `json:"Module"`
+	QuestionOneDTO        string    `json:"QuestionOne"`
+	QuestionTwoDTO        string    `json:"QuestionTwo"`
+	SentAtDTO             time.Time `json:"CreatedAt"`
+}
+
 func NewFormsController(formsUsecase usecase.FormsUsecase) formsController {
 	return formsController{
 		formsUsecase: formsUsecase,
 	}
+}
+
+func (fa *formsController) ReceiveForms(ctx *gin.Context) {
+	var form FormsDTO
+
+	if err := ctx.ShouldBindJSON(&form); err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{"error": "JSON inválido"})
+		return
+	}
+
+	ctx.JSON(http.StatusOK, gin.H{
+		"status": "OK",
+		"msg":    "Data saved on Database!",
+	})
 }
 
 // fa = forms activities
