@@ -30,10 +30,13 @@ func main() {
 	// Controllers
 	formsController := controller.NewFormsController(FormsUsecase)
 
-	server.GET("/api/v1/forms-activities/response", formsController.GetForms)
-	server.GET("/api/v1/forms-activities/response/:registrationNumber", formsController.FindById)
-	// server.POST("/api/v1/forms-activities/response", formsController.CreateForms)
-	server.POST("/api/v1/forms-activities/response", formsController.ReceiveForms)
+	api := server.Group("/api/v1/forms-activities")
+	{
+		api.GET("/response", formsController.GetForms)
+		api.GET("/response/:registrationNumber", formsController.FindById)
+		// api.POST("/api/v1/forms-activities/response", formsController.CreateForms)
+		api.POST("/response", formsController.ReceiveForms)
+	}
 
 	server.Run(":8000")
 }

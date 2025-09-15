@@ -20,7 +20,7 @@ function cadastrar() {
         return;
     }
 
-    fetch('http://localhost:8000/api/activities/v1/response', {
+    fetch('http://localhost:8000/api/v1/forms-activities/response', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"forms-activities/dto"
 	"forms-activities/model"
 	"forms-activities/usecase"
 	"net/http"
@@ -13,16 +14,6 @@ type formsController struct {
 	formsUsecase usecase.FormsUsecase
 }
 
-type FormsDTO struct {
-	RegistrationNumberDTO string    `json:"RegistrationNumber"`
-	NameDTO               string    `json:"Name"`
-	EmailDTO              string    `json:"Email"`
-	ModuleDTO             string    `json:"Module"`
-	QuestionOneDTO        string    `json:"QuestionOne"`
-	QuestionTwoDTO        string    `json:"QuestionTwo"`
-	SentAtDTO             time.Time `json:"CreatedAt"`
-}
-
 func NewFormsController(formsUsecase usecase.FormsUsecase) formsController {
 	return formsController{
 		formsUsecase: formsUsecase,
@@ -30,17 +21,25 @@ func NewFormsController(formsUsecase usecase.FormsUsecase) formsController {
 }
 
 func (fa *formsController) ReceiveForms(ctx *gin.Context) {
-	var form FormsDTO
+	var form dto.FormsDTO
 
-	if err := ctx.ShouldBindJSON(&form); err != nil {
+	err := ctx.BindJSON(&form)
+	if err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{"error": "JSON inválido"})
 		return
 	}
 
-	ctx.JSON(http.StatusOK, gin.H{
-		"status": "OK",
-		"msg":    "Data saved on Database!",
-	})
+	form.SentAtDTO = time.Now()
+
+	modelForm := form.ToModel()
+
+	insertedForm, err := fa.formsUsecase.PostForms(modelForm)
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Erro ao salvar no banco"})
+		return
+	}
+
+	ctx.JSON(http.StatusCreated, insertedForm)
 }
 
 // fa = forms activities
