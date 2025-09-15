@@ -36,5 +36,4 @@ func main() {
 	server.POST("/api/v1/forms-activities/response", formsController.ReceiveForms)
 
 	server.Run(":8000")
-
 }
