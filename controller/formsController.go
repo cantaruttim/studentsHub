@@ -30,33 +30,25 @@ func (fa *formsController) GetForms(ctx *gin.Context) {
 }
 
 func (fa *formsController) FindById(ctx *gin.Context) {
-	// Pega o valor da URL corretamente (case-sensitive)
 	RN := ctx.Param("registrationNumber")
 
 	if RN == "" {
-		res := model.Respose{
-			Message: "The value of RegistrationNumber must not be empty",
-		}
-		ctx.JSON(http.StatusBadRequest, res)
+		ctx.JSON(http.StatusBadRequest, gin.H{"error": "registrationNumber must not be empty"})
 		return
 	}
 
-	forms, err := fa.formsUsecase.FindById(RN)
+	form, err := fa.formsUsecase.FindById(RN)
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Erro ao buscar no banco"})
 		return
 	}
 
-	// Aqui valida se não encontrou nada
-	if forms.RegistrationNumber == "" {
-		res := model.Respose{
-			Message: "The value of RegistrationNumber could not be found on database",
-		}
-		ctx.JSON(http.StatusNotFound, res)
+	if form == nil {
+		ctx.JSON(http.StatusNotFound, gin.H{"message": "Formulário não encontrado"})
 		return
 	}
 
-	ctx.JSON(http.StatusOK, forms)
+	ctx.JSON(http.StatusOK, form)
 }
 
 func (fa *formsController) CreateForms(ctx *gin.Context) {
