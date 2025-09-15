@@ -85,18 +85,16 @@ func (fr *FormsRepository) CreateForms(form model.Forms) error {
 
 func (fr *FormsRepository) FindById(RegistrationNumber string) (*model.Forms, error) {
 
-	query, err := fr.connection.Prepare(
-		"select * from activities" +
-			"where RegistrationNumber = $1",
-	)
-	if err != nil {
-		fmt.Println(err)
-		return nil, err
-	}
+	row := fr.connection.QueryRow(`
+		select 
+			registrationNumber, name, email, module, questionOne, questionTwo, SentAt
+		from activities 
+		where registrationNumber = $1
+	`, RegistrationNumber)
 
 	var form model.Forms
 
-	err = query.QueryRow(RegistrationNumber).Scan(
+	err := row.Scan(
 		&form.RegistrationNumber,
 		&form.Name,
 		&form.Email,
@@ -112,7 +110,5 @@ func (fr *FormsRepository) FindById(RegistrationNumber string) (*model.Forms, er
 		}
 		return nil, err
 	}
-
-	query.Close()
 	return &form, nil
 }
